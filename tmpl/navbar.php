@@ -14,25 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 $vp_has_primary_menu = has_nav_menu( 'primary' );
 $vp_panel_id         = 'vp-header-panel';
 $vp_nav_id           = 'vp-primary-navigation';
-$vp_logo_rel         = 'assets/images/logo-valjevsko.png';
-$vp_logo_readable    = is_readable( get_stylesheet_directory() . '/' . $vp_logo_rel );
 $vp_home_url         = home_url( '/' );
-$vp_site_name        = get_bloginfo( 'name' );
 ?>
 <header class="vp-header">
 	<div class="vp-header__bar vp-container">
 		<a class="vp-header__brand vp-header__brand--bar" href="<?php echo esc_url( $vp_home_url ); ?>">
-			<?php if ( $vp_logo_readable ) : ?>
-				<img
-					src="<?php echo esc_url( get_stylesheet_directory_uri() . '/' . $vp_logo_rel ); ?>"
-					width="134"
-					height="76"
-					alt="<?php echo esc_attr( $vp_site_name ); ?>"
-					decoding="async"
-				/>
-			<?php else : ?>
-				<?php echo esc_html( $vp_site_name ); ?>
-			<?php endif; ?>
+			<?php valjevska_pivara_the_logo(); ?>
 		</a>
 
 		<?php if ( $vp_has_primary_menu ) : ?>
@@ -64,17 +51,7 @@ $vp_site_name        = get_bloginfo( 'name' );
 				</button>
 
 				<a class="vp-header__brand vp-header__brand--panel" href="<?php echo esc_url( $vp_home_url ); ?>">
-					<?php if ( $vp_logo_readable ) : ?>
-						<img
-							src="<?php echo esc_url( get_stylesheet_directory_uri() . '/' . $vp_logo_rel ); ?>"
-							width="134"
-							height="76"
-							alt="<?php echo esc_attr( $vp_site_name ); ?>"
-							decoding="async"
-						/>
-					<?php else : ?>
-						<?php echo esc_html( $vp_site_name ); ?>
-					<?php endif; ?>
+					<?php valjevska_pivara_the_logo(); ?>
 				</a>
 
 				<hr class="vp-header__rule" />
