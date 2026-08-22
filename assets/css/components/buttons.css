@@ -1,0 +1,58 @@
+/**
+ * Opt-in button primitives.
+ *
+ * Apply .vp-button plus a modifier. These selectors do not target
+ * native button elements, parent-theme .button classes, or WooCommerce.
+ *
+ * Unresolved from Figma: button font family, weight, and size; hover
+ * styles; icon treatment; the secondary control's two-label layout.
+ * When that secondary layout is implemented, use justify-content:
+ * space-between on the actual component — do not use a fixed 171px gap
+ * or the 378px primary-button artboard width.
+ *
+ * :focus-visible outline width and offset are accessibility values, not
+ * Figma tokens.
+ */
+
+.vp-button {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: auto;
+  min-height: var(--vp-button-min-height);
+  margin: 0;
+  font: inherit;
+  letter-spacing: var(--vp-letter-spacing-default);
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.vp-button:focus {
+  outline: none;
+}
+
+.vp-button:focus-visible {
+  outline: 0.125rem solid currentColor;
+  outline-offset: 0.25rem;
+}
+
+.vp-button--primary {
+  justify-content: center;
+  padding-block: var(--vp-button-padding-block);
+  padding-inline: var(--vp-button-padding-inline);
+  gap: var(--vp-button-gap);
+  border: none;
+  border-radius: var(--vp-button-radius);
+  background-color: var(--vp-button-primary-background);
+  color: var(--vp-button-primary-color);
+}
+
+.vp-button--secondary {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background-color: var(--vp-button-secondary-background);
+  color: var(--vp-button-secondary-color);
+}

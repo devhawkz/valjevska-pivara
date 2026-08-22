@@ -1,0 +1,42 @@
+/**
+ * Global foundation styles for the public-facing site.
+ *
+ * Loaded on all front-end pages. Do not add component, block, or
+ * template-specific rules here.
+ *
+ * Display typography is opt-in via .vp-text-display. Heading elements
+ * are not globally forced to 64px.
+ *
+ * .vp-container sets the 1440px content width only. It does not add
+ * horizontal gutters; parent Bootstrap .container already uses 15px
+ * padding, which is not confirmed as the Figma page gutter.
+ */
+
+html {
+  background-color: var(--vp-color-background);
+}
+
+body,
+body.body-black {
+  background-color: var(--vp-color-background);
+  color: var(--vp-color-text);
+  font-family: var(--vp-font-family-body);
+  font-weight: var(--vp-font-weight-regular);
+  font-size: var(--vp-font-size-body);
+  line-height: var(--vp-line-height-body);
+  letter-spacing: var(--vp-letter-spacing-default);
+}
+
+.vp-container {
+  width: 100%;
+  max-width: var(--vp-site-max-width);
+  margin-inline: auto;
+}
+
+.vp-text-display {
+  font-family: var(--vp-font-family-heading);
+  font-weight: var(--vp-font-weight-black);
+  font-size: var(--vp-font-size-display);
+  line-height: var(--vp-line-height-display);
+  letter-spacing: var(--vp-letter-spacing-default);
+}

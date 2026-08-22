@@ -12,4 +12,5 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: valjevska-pivara
 */
 
-/* Dodajte prilagođene stilove ispod ove linije. */
+/* Front-end CSS is enqueued from assets/css/ via inc/enqueue-assets.php. */
+

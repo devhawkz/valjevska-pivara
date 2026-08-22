@@ -1,0 +1,53 @@
+/**
+ * Valjevska pivara design tokens.
+ *
+ * Source: Figma "Valjevsko", node 2028:527
+ * https://www.figma.com/design/YiyDHxSn2A26B4ewW1gf8K/Valjevsko?node-id=2028-527
+ *
+ * Values assume a 16px root font size so that 90rem equals 1440px.
+ * Horizontal page gutters are intentionally omitted until the Figma
+ * source defines them separately from the 1440px content width.
+ *
+ * Local WOFF2 files are not present. When they are added, declare only:
+ * - assets/fonts/poppins-500.woff2
+ * - assets/fonts/inter-400.woff2
+ * - assets/fonts/inter-900.woff2
+ */
+
+:root {
+  --vp-site-max-width: 90rem;
+
+  --vp-color-background: #262022;
+  --vp-color-accent: #E6BF55;
+  --vp-color-text: #FFFFFF;
+  --vp-color-text-muted: rgba(255, 255, 255, 0.40);
+
+  --vp-font-family-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --vp-font-family-navigation: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --vp-font-family-heading: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --vp-font-size-body: 1.5rem;
+  --vp-font-size-navigation: 1.5rem;
+  --vp-font-size-display: 4rem;
+
+  --vp-font-weight-regular: 400;
+  --vp-font-weight-medium: 500;
+  --vp-font-weight-black: 900;
+
+  --vp-line-height-body: normal;
+  --vp-line-height-navigation: normal;
+  --vp-line-height-display: normal;
+
+  --vp-letter-spacing-default: 0;
+
+  --vp-button-min-height: 3.4375rem;
+  --vp-button-padding-inline: 1.5rem;
+  --vp-button-padding-block: 0.5rem;
+  --vp-button-gap: 1rem;
+  --vp-button-radius: 2.375rem;
+  --vp-button-primary-background: var(--vp-color-accent);
+  --vp-button-primary-color: var(--vp-color-background);
+  --vp-button-secondary-background: transparent;
+  --vp-button-secondary-color: var(--vp-color-text);
+  --vp-button-secondary-muted-color: var(--vp-color-text-muted);
+}
