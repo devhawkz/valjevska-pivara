@@ -6,6 +6,8 @@
  * - Global tokens and base styles: loaded on all public-facing pages.
  * - Header styles and script: loaded on all public-facing pages because
  *   the header template part is used site-wide.
+ * - Footer styles: loaded on all public-facing pages because the footer
+ *   template part is used site-wide. No footer JavaScript.
  * - Opt-in button primitives: loaded globally while there is no PHP
  *   component that can detect usage. Do not add further component CSS
  *   to this global set.
@@ -147,6 +149,7 @@ function valjevska_pivara_enqueue_styles() {
 	);
 
 	valjevska_pivara_enqueue_header_assets();
+	valjevska_pivara_enqueue_footer_assets();
 }
 
 /**
@@ -177,6 +180,19 @@ function valjevska_pivara_enqueue_header_assets() {
 			'expandSubmenu'   => __( 'Expand submenu', 'valjevska-pivara' ),
 			'collapseSubmenu' => __( 'Collapse submenu', 'valjevska-pivara' ),
 		)
+	);
+}
+
+/**
+ * Load footer CSS. No footer script.
+ *
+ * @return void
+ */
+function valjevska_pivara_enqueue_footer_assets() {
+	valjevska_pivara_enqueue_style(
+		'valjevska-pivara-footer',
+		'assets/css/components/footer.css',
+		array( 'valjevska-pivara-tokens', 'valjevska-pivara-base' )
 	);
 }
 add_action( 'wp_enqueue_scripts', 'valjevska_pivara_enqueue_styles', 11 );

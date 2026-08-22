@@ -29,6 +29,8 @@
   --vp-font-size-body: 1.5rem;
   --vp-font-size-navigation: 1.5rem;
   --vp-font-size-display: 4rem;
+  --vp-font-size-footer-description: 1rem;
+  --vp-font-size-footer-legal: 0.875rem;
 
   --vp-font-weight-regular: 400;
   --vp-font-weight-medium: 500;
@@ -69,4 +71,24 @@
   --vp-button-secondary-background: transparent;
   --vp-button-secondary-color: var(--vp-color-text);
   --vp-button-secondary-muted-color: var(--vp-color-text-muted);
+
+  --vp-footer-padding-block-start: 3.75rem;
+  --vp-footer-padding-block-end: 2.5rem;
+  --vp-footer-padding-inline: 4.375rem;
+  --vp-footer-padding-inline-narrow: 1.5rem;
+  --vp-footer-padding-block-narrow: 1.5rem;
+  --vp-footer-intro-max-width: 22.5rem;
+  --vp-footer-intro-gap: 1.25rem;
+  --vp-footer-main-gap: 3rem;
+  --vp-footer-main-gap-narrow: 1.5rem;
+  --vp-footer-nav-column-gap: 4.125rem;
+  --vp-footer-nav-row-gap: 1.5rem;
+  --vp-footer-logo-width-mobile-min: 10rem;
+  --vp-footer-logo-width-mobile-max: 11.25rem;
+  --vp-footer-bar-background: var(--vp-color-header-background);
+  --vp-footer-bar-padding-block: 1.25rem;
+  --vp-footer-bar-gap: 1rem 2rem;
+  --vp-footer-legal-gap: 0.75rem 1.5rem;
+  --vp-footer-social-size: 1.5rem;
+  --vp-footer-social-gap: 0.75rem;
 }

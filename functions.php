@@ -10,3 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once get_stylesheet_directory() . '/inc/enqueue-assets.php';
+require_once get_stylesheet_directory() . '/inc/setup.php';
+require_once get_stylesheet_directory() . '/inc/customizer.php';
+require_once get_stylesheet_directory() . '/inc/footer.php';
