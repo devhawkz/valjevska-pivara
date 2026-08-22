@@ -4,6 +4,8 @@
  *
  * Loading strategy:
  * - Global tokens and base styles: loaded on all public-facing pages.
+ * - Header styles and script: loaded on all public-facing pages because
+ *   the header template part is used site-wide.
  * - Opt-in button primitives: loaded globally while there is no PHP
  *   component that can detect usage. Do not add further component CSS
  *   to this global set.
@@ -71,6 +73,33 @@ function valjevska_pivara_enqueue_style( $handle, $relative_path, $dependencies 
 }
 
 /**
+ * Enqueue a child-theme script when the file exists.
+ *
+ * @param string   $handle         Script handle.
+ * @param string   $relative_path  Path relative to the child theme root.
+ * @param string[] $dependencies   Script handles this file depends on.
+ * @return void
+ */
+function valjevska_pivara_enqueue_script( $handle, $relative_path, $dependencies = array() ) {
+	$relative_path = ltrim( $relative_path, '/' );
+	$file_path     = get_stylesheet_directory() . '/' . $relative_path;
+
+	if ( ! is_readable( $file_path ) ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		$handle,
+		get_stylesheet_directory_uri() . '/' . $relative_path,
+		$dependencies,
+		valjevska_pivara_get_asset_version( $relative_path ),
+		true
+	);
+
+	wp_script_add_data( $handle, 'strategy', 'defer' );
+}
+
+/**
  * Load the parent stylesheet before child foundation styles.
  *
  * Weisber registers the active theme's stylesheet under its main style
@@ -115,6 +144,39 @@ function valjevska_pivara_enqueue_styles() {
 		'valjevska-pivara-buttons',
 		'assets/css/components/buttons.css',
 		array( 'valjevska-pivara-tokens' )
+	);
+
+	valjevska_pivara_enqueue_header_assets();
+}
+
+/**
+ * Load header CSS and deferred vanilla JS.
+ *
+ * @return void
+ */
+function valjevska_pivara_enqueue_header_assets() {
+	valjevska_pivara_enqueue_style(
+		'valjevska-pivara-header',
+		'assets/css/components/header.css',
+		array( 'valjevska-pivara-tokens', 'valjevska-pivara-base' )
+	);
+
+	valjevska_pivara_enqueue_script(
+		'valjevska-pivara-header',
+		'assets/js/header.js'
+	);
+
+	if ( ! wp_script_is( 'valjevska-pivara-header', 'enqueued' ) ) {
+		return;
+	}
+
+	wp_localize_script(
+		'valjevska-pivara-header',
+		'valjevskaPivaraHeader',
+		array(
+			'expandSubmenu'   => __( 'Expand submenu', 'valjevska-pivara' ),
+			'collapseSubmenu' => __( 'Collapse submenu', 'valjevska-pivara' ),
+		)
 	);
 }
 add_action( 'wp_enqueue_scripts', 'valjevska_pivara_enqueue_styles', 11 );

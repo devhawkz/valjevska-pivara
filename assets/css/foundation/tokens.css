@@ -40,6 +40,25 @@
 
   --vp-letter-spacing-default: 0;
 
+  --vp-color-header-background: #111111;
+  --vp-header-nav-gap: 4.125rem;
+  --vp-header-nav-margin-block-start: 3.75rem;
+  --vp-header-nav-margin-inline-end: 22.875rem;
+  --vp-header-nav-margin-block-end: 2.6875rem;
+  --vp-header-nav-margin-inline-start: 4.375rem;
+  --vp-header-logo-margin-block-start: 2.375rem;
+  --vp-header-logo-margin-inline-end: 4.8125rem;
+  --vp-header-logo-margin-block-end: 1.5rem;
+  --vp-header-logo-margin-inline-start: 9.6875rem;
+  --vp-header-logo-padding-block-start: 1.375rem;
+  --vp-header-logo-padding-block-end: 1.125rem;
+  --vp-header-logo-width: 8.375rem;
+  --vp-header-logo-height: 4.75rem;
+  --vp-header-panel-logo-width: 15.625rem;
+  --vp-header-rule-color: var(--vp-color-text-muted);
+  --vp-header-rule-size: 0.0625rem;
+  --vp-header-panel-padding: 1.5rem;
+
   --vp-button-min-height: 3.4375rem;
   --vp-button-padding-inline: 1.5rem;
   --vp-button-padding-block: 0.5rem;
