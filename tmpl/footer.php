@@ -47,6 +47,38 @@ $vp_year            = wp_date( 'Y' );
 
 	<div class="vp-footer__bar">
 		<div class="vp-footer__bar-inner vp-container">
+			<div class="vp-footer__meta">
+				<p class="vp-footer__copyright">
+					<?php
+					echo esc_html(
+						sprintf(
+							/* translators: 1: site name, 2: current year */
+							__( '© %1$s, %2$s', 'valjevska-pivara' ),
+							$vp_site_name,
+							$vp_year
+						)
+					);
+					?>
+				</p>
+
+				<?php if ( $vp_has_legal_menu ) : ?>
+					<nav class="vp-footer__legal-nav" aria-label="<?php echo esc_attr__( 'Legal', 'valjevska-pivara' ); ?>">
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location' => 'footer-legal',
+								'container'      => false,
+								'menu_id'        => 'vp-footer-legal',
+								'menu_class'     => 'vp-footer__legal',
+								'fallback_cb'    => false,
+								'depth'          => 1,
+							)
+						);
+						?>
+					</nav>
+				<?php endif; ?>
+			</div>
+
 			<?php if ( ! empty( $vp_social_links ) ) : ?>
 				<nav class="vp-footer__social-nav" aria-label="<?php echo esc_attr__( 'Social', 'valjevska-pivara' ); ?>">
 					<ul class="vp-footer__social">
@@ -65,38 +97,6 @@ $vp_year            = wp_date( 'Y' );
 					</ul>
 				</nav>
 			<?php endif; ?>
-
-			<div class="vp-footer__meta">
-				<?php if ( $vp_has_legal_menu ) : ?>
-					<nav class="vp-footer__legal-nav" aria-label="<?php echo esc_attr__( 'Legal', 'valjevska-pivara' ); ?>">
-						<?php
-						wp_nav_menu(
-							array(
-								'theme_location' => 'footer-legal',
-								'container'      => false,
-								'menu_id'        => 'vp-footer-legal',
-								'menu_class'     => 'vp-footer__legal',
-								'fallback_cb'    => false,
-								'depth'          => 1,
-							)
-						);
-						?>
-					</nav>
-				<?php endif; ?>
-
-				<p class="vp-footer__copyright">
-					<?php
-					echo esc_html(
-						sprintf(
-							/* translators: 1: site name, 2: current year */
-							__( '© %1$s, %2$s', 'valjevska-pivara' ),
-							$vp_site_name,
-							$vp_year
-						)
-					);
-					?>
-				</p>
-			</div>
 		</div>
 	</div>
 </footer>

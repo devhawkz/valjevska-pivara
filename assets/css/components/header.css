@@ -9,14 +9,28 @@
  */
 
 .vp-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
   background-color: var(--vp-color-header-background);
   width: 100%;
+}
+
+body.admin-bar .vp-header {
+  top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar .vp-header {
+    top: 46px;
+  }
 }
 
 .ltx-content-wrapper,
 .header-wrapper {
   background-color: var(--vp-color-background);
   background-image: none;
+  overflow: visible;
 }
 
 .vp-header__bar {

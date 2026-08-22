@@ -227,6 +227,16 @@
   outline-offset: 0.25rem;
 }
 
+@media (max-width: 74.874em) {
+  .vp-footer__social-nav {
+    order: -1;
+  }
+
+  .vp-footer__copyright {
+    order: 1;
+  }
+}
+
 @media (min-width: 30em) {
   .vp-footer__menu {
     grid-template-columns: repeat(2, minmax(0, max-content));
@@ -252,6 +262,7 @@
   .vp-footer__menu {
     width: auto;
     margin-inline: 0;
+    margin: 0 auto;
   }
 
   .vp-footer__menu {
