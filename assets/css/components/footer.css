@@ -194,7 +194,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--vp-footer-social-gap);
+  gap: 2rem;
 }
 
 .vp-footer__social a {
@@ -262,13 +262,15 @@
   .vp-footer__menu {
     width: auto;
     margin-inline: 0;
-    margin: 0 auto;
+    margin-left: 6.25rem;
   }
 
   .vp-footer__menu {
     grid-template-columns: repeat(3, minmax(0, max-content));
     grid-template-rows: repeat(2, auto);
     grid-auto-flow: column;
+    gap: 60px 145px;
+    padding: 41px 0 110px 0;
   }
 
   .vp-footer__bar-inner {
@@ -280,4 +282,9 @@
   .vp-footer__legal {
     gap: 0.75rem 5rem;
   }
+}
+
+.vp-footer__main,
+.vp-footer__bar-inner{
+  width: var(--vp-site-max-width);
 }

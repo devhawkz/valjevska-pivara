@@ -392,6 +392,11 @@ body.admin-bar .vp-header {
     padding-inline-start: 1rem;
   }
 
+  .vp-header__menu .sub-menu a {
+    padding-block: 0.75rem;
+    padding-inline: 1rem;
+  }
+
   .vp-header__menu .is-sub-open > .sub-menu {
     display: flex;
   }
@@ -483,7 +488,7 @@ body.admin-bar .vp-header {
     z-index: 20;
     display: none;
     min-width: 12rem;
-    padding: 0.5rem 0;
+    padding: 0.75rem 0;
     background-color: var(--vp-color-header-background);
   }
 
@@ -501,7 +506,7 @@ body.admin-bar .vp-header {
     display: flex;
     width: 100%;
     box-sizing: border-box;
-    padding: 0.5rem 1rem;
+    padding: 1rem 1.5rem;
   }
 
   .vp-header__menu .sub-menu .menu-item-has-children {
