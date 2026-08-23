@@ -91,4 +91,14 @@
   --vp-footer-legal-gap: 0.75rem 1.5rem;
   --vp-footer-social-size: 1.5rem;
   --vp-footer-social-gap: 0.75rem;
+
+  --vp-hero-content-span: 49%;
+  --vp-hero-overlay: rgba(17, 17, 17, 0.52);
+  --vp-hero-overlay-reduced: rgba(17, 17, 17, 0.92);
+  --vp-hero-blur: 2rem;
+  --vp-hero-padding-block: 3.75rem;
+  --vp-hero-content-gap: 1.5rem;
+  --vp-hero-desktop-height: 60rem;
+  --vp-hero-rule-color: var(--vp-color-text);
+  --vp-hero-title-gradient: linear-gradient(180deg, #f3d78a 0%, var(--vp-color-accent) 48%, #c9a040 100%);
 }

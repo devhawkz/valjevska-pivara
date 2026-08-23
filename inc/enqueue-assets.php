@@ -7,7 +7,9 @@
  * - Header and footer variant assets: loaded on all public-facing pages
  *   for the active registry entries only.
  * - Homepage variant assets: loaded only on the front page, and only
- *   when the active homepage variant declares them.
+ *   for section parts registered on the active homepage variant. Each
+ *   part's stylesheet is `assets/css/{template}.css` unless the part
+ *   declares a `stylesheet` key.
  * - Opt-in button primitives: loaded globally while there is no PHP
  *   component that can detect usage. Do not add further component CSS
  *   to this global set.
@@ -152,7 +154,36 @@ function valjevska_pivara_enqueue_styles() {
 	valjevska_pivara_enqueue_variant_assets( 'footer' );
 
 	if ( is_front_page() ) {
-		valjevska_pivara_enqueue_variant_assets( 'homepage' );
+		valjevska_pivara_enqueue_homepage_part_assets();
+	}
+}
+
+/**
+ * Enqueue stylesheets for homepage section parts used on the front page.
+ *
+ * @return void
+ */
+function valjevska_pivara_enqueue_homepage_part_assets() {
+	foreach ( valjevska_pivara_get_homepage_parts() as $part ) {
+		$stylesheet = '';
+
+		if ( ! empty( $part['stylesheet'] ) && is_string( $part['stylesheet'] ) ) {
+			$stylesheet = $part['stylesheet'];
+		} else {
+			$stylesheet = 'assets/css/' . $part['template'] . '.css';
+		}
+
+		$style_handle = 'valjevska-pivara-' . sanitize_key( str_replace( '/', '-', $part['template'] ) );
+
+		if ( ! empty( $part['style_handle'] ) && is_string( $part['style_handle'] ) ) {
+			$style_handle = $part['style_handle'];
+		}
+
+		valjevska_pivara_enqueue_style(
+			$style_handle,
+			$stylesheet,
+			array( 'valjevska-pivara-tokens', 'valjevska-pivara-base' )
+		);
 	}
 }
 

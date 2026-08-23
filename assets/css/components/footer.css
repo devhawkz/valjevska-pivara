@@ -229,7 +229,7 @@
 
 @media (max-width: 74.874em) {
   .vp-footer__social-nav {
-    order: -1;
+    order: 1;
   }
 
   .vp-footer__copyright {

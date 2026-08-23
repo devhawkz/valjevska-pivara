@@ -41,6 +41,11 @@ function valjevska_pivara_get_variant_registry() {
 			'v1' => array(
 				'label'    => __( 'Homepage V1', 'valjevska-pivara' ),
 				'template' => 'tmpl/homepage-v1',
+				'parts'    => array(
+					array(
+						'template' => 'parts/homepage-v1-hero',
+					),
+				),
 			),
 		),
 	);
@@ -142,6 +147,65 @@ function valjevska_pivara_get_active_variant( $component ) {
 }
 
 /**
+ * Whether a registry template path is allowed.
+ *
+ * @param string $template Path relative to the child theme, without .php.
+ * @return bool
+ */
+function valjevska_pivara_is_allowed_template_path( $template ) {
+	if ( ! is_string( $template ) || '' === $template || false !== strpos( $template, '..' ) ) {
+		return false;
+	}
+
+	return ( 0 === strpos( $template, 'tmpl/' ) || 0 === strpos( $template, 'parts/' ) );
+}
+
+/**
+ * Return registered homepage section parts for the active homepage variant.
+ *
+ * @return array<int, array<string, string>>
+ */
+function valjevska_pivara_get_homepage_parts() {
+	$variant = valjevska_pivara_get_active_variant( 'homepage' );
+	$parts   = array();
+
+	if ( empty( $variant['parts'] ) || ! is_array( $variant['parts'] ) ) {
+		return $parts;
+	}
+
+	foreach ( $variant['parts'] as $part ) {
+		if ( ! is_array( $part ) || empty( $part['template'] ) || ! is_string( $part['template'] ) ) {
+			continue;
+		}
+
+		if ( ! valjevska_pivara_is_allowed_template_path( $part['template'] ) ) {
+			continue;
+		}
+
+		$parts[] = $part;
+	}
+
+	return $parts;
+}
+
+/**
+ * Render registered homepage section parts in registry order.
+ *
+ * @return void
+ */
+function valjevska_pivara_the_homepage_parts() {
+	foreach ( valjevska_pivara_get_homepage_parts() as $part ) {
+		$file_path = get_stylesheet_directory() . '/' . $part['template'] . '.php';
+
+		if ( ! is_readable( $file_path ) ) {
+			continue;
+		}
+
+		get_template_part( $part['template'] );
+	}
+}
+
+/**
  * Load the active variant template part for a component.
  *
  * @param string $component Component key.
@@ -156,7 +220,7 @@ function valjevska_pivara_the_variant_template( $component ) {
 
 	$template = $variant['template'];
 
-	if ( false !== strpos( $template, '..' ) || 0 !== strpos( $template, 'tmpl/' ) ) {
+	if ( ! valjevska_pivara_is_allowed_template_path( $template ) ) {
 		return;
 	}
 

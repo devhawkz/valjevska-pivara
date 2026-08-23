@@ -1,9 +1,6 @@
 <?php
 /**
- * Homepage V1 entry point.
- *
- * Sections are not implemented yet. Existing page content is retained
- * through the standard loop and the parent content-page template part.
+ * Homepage V1: registered section parts, then existing page content.
  *
  * @package Valjevska_Pivara
  */
@@ -11,6 +8,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+valjevska_pivara_the_homepage_parts();
 
 while ( have_posts() ) :
 	the_post();

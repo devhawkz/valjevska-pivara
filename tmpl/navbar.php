@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $vp_has_primary_menu = has_nav_menu( 'primary' );
+$vp_social_links     = valjevska_pivara_get_social_links();
 $vp_panel_id         = 'vp-header-panel';
 $vp_nav_id           = 'vp-primary-navigation';
 $vp_home_url         = home_url( '/' );
@@ -69,6 +70,24 @@ $vp_home_url         = home_url( '/' );
 					);
 					?>
 				</nav>
+				<?php if ( ! empty( $vp_social_links ) ) : ?>
+					<nav class="vp-header__social" aria-label="<?php echo esc_attr__( 'Social', 'valjevska-pivara' ); ?>">
+						<ul class="vp-footer__social">
+							<?php foreach ( $vp_social_links as $vp_slug => $vp_network ) : ?>
+								<li>
+									<a
+										href="<?php echo esc_url( $vp_network['url'] ); ?>"
+										rel="noopener noreferrer"
+										target="_blank"
+										aria-label="<?php echo esc_attr( $vp_network['label'] ); ?>"
+									>
+										<?php valjevska_pivara_the_icon_svg( $vp_slug ); ?>
+									</a>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					</nav>
+				<?php endif; ?>
 			</div>
 		<?php endif; ?>
 	</div>
