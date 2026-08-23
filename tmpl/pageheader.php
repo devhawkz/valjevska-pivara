@@ -1,12 +1,10 @@
 <?php
 /**
- * Page header wrappers required by the parent layout.
+ * Back-compat template part name used by the parent header.php.
  *
- * Renders the child navbar only. Weisber's title/breadcrumb banner is
- * omitted so the site header matches the Figma bar.
- *
- * These two opening divs, plus the parent header's main-wrapper, are
- * closed in the child footer.php.
+ * The child header.php loads Header V1 through the variant registry.
+ * This file remains so `get_template_part( 'tmpl/pageheader' )` still
+ * renders Header V1.
  *
  * @package Valjevska_Pivara
  */
@@ -14,8 +12,5 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-?>
-<div class="ltx-content-wrapper">
-	<div class="header-wrapper ltx-pageheader-disabled">
-	<?php
-		get_template_part( 'tmpl/navbar' );
+
+get_template_part( 'tmpl/header-v1' );

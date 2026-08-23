@@ -4,10 +4,10 @@
  *
  * Loading strategy:
  * - Global tokens and base styles: loaded on all public-facing pages.
- * - Header styles and script: loaded on all public-facing pages because
- *   the header template part is used site-wide.
- * - Footer styles: loaded on all public-facing pages because the footer
- *   template part is used site-wide. No footer JavaScript.
+ * - Header and footer variant assets: loaded on all public-facing pages
+ *   for the active registry entries only.
+ * - Homepage variant assets: loaded only on the front page, and only
+ *   when the active homepage variant declares them.
  * - Opt-in button primitives: loaded globally while there is no PHP
  *   component that can detect usage. Do not add further component CSS
  *   to this global set.
@@ -148,51 +148,55 @@ function valjevska_pivara_enqueue_styles() {
 		array( 'valjevska-pivara-tokens' )
 	);
 
-	valjevska_pivara_enqueue_header_assets();
-	valjevska_pivara_enqueue_footer_assets();
+	valjevska_pivara_enqueue_variant_assets( 'header' );
+	valjevska_pivara_enqueue_variant_assets( 'footer' );
+
+	if ( is_front_page() ) {
+		valjevska_pivara_enqueue_variant_assets( 'homepage' );
+	}
 }
 
 /**
- * Load header CSS and deferred vanilla JS.
+ * Enqueue stylesheet and optional script for the active component variant.
  *
+ * @param string $component Component key.
  * @return void
  */
-function valjevska_pivara_enqueue_header_assets() {
-	valjevska_pivara_enqueue_style(
-		'valjevska-pivara-header',
-		'assets/css/components/header.css',
-		array( 'valjevska-pivara-tokens', 'valjevska-pivara-base' )
-	);
+function valjevska_pivara_enqueue_variant_assets( $component ) {
+	$variant = valjevska_pivara_get_active_variant( $component );
 
-	valjevska_pivara_enqueue_script(
-		'valjevska-pivara-header',
-		'assets/js/header.js'
-	);
+	if ( empty( $variant ) ) {
+		return;
+	}
 
-	if ( ! wp_script_is( 'valjevska-pivara-header', 'enqueued' ) ) {
+	if ( ! empty( $variant['stylesheet'] ) && is_string( $variant['stylesheet'] ) ) {
+		$style_handle = ! empty( $variant['style_handle'] ) ? $variant['style_handle'] : 'valjevska-pivara-' . $component;
+		valjevska_pivara_enqueue_style(
+			$style_handle,
+			$variant['stylesheet'],
+			array( 'valjevska-pivara-tokens', 'valjevska-pivara-base' )
+		);
+	}
+
+	if ( empty( $variant['script'] ) || ! is_string( $variant['script'] ) ) {
+		return;
+	}
+
+	$script_handle = ! empty( $variant['script_handle'] ) ? $variant['script_handle'] : 'valjevska-pivara-' . $component;
+
+	valjevska_pivara_enqueue_script( $script_handle, $variant['script'] );
+
+	if ( 'valjevska-pivara-header' !== $script_handle || ! wp_script_is( $script_handle, 'enqueued' ) ) {
 		return;
 	}
 
 	wp_localize_script(
-		'valjevska-pivara-header',
+		$script_handle,
 		'valjevskaPivaraHeader',
 		array(
 			'expandSubmenu'   => __( 'Expand submenu', 'valjevska-pivara' ),
 			'collapseSubmenu' => __( 'Collapse submenu', 'valjevska-pivara' ),
 		)
-	);
-}
-
-/**
- * Load footer CSS. No footer script.
- *
- * @return void
- */
-function valjevska_pivara_enqueue_footer_assets() {
-	valjevska_pivara_enqueue_style(
-		'valjevska-pivara-footer',
-		'assets/css/components/footer.css',
-		array( 'valjevska-pivara-tokens', 'valjevska-pivara-base' )
 	);
 }
 add_action( 'wp_enqueue_scripts', 'valjevska_pivara_enqueue_styles', 11 );

@@ -1,10 +1,9 @@
 <?php
 /**
- * Site footer for the Valjevska pivara child theme.
+ * Document footer for the Valjevska pivara child theme.
  *
- * Closes the layout wrappers opened in the parent header and the child
- * page header, then renders the Figma footer. Weisber's widget,
- * subscribe, copyright, and go-top output is omitted.
+ * Closes the layout wrappers opened in header.php and Header V1, loads
+ * the selected Footer variant, then prints wp_footer() and closing markup.
  *
  * @package Valjevska_Pivara
  */
@@ -17,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div><!-- .header-wrapper -->
 </div><!-- .ltx-content-wrapper -->
 <?php
-get_template_part( 'tmpl/footer' );
+valjevska_pivara_the_variant_template( 'footer' );
 wp_footer();
 ?>
 </body>
