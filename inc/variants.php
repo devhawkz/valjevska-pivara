@@ -48,6 +48,9 @@ function valjevska_pivara_get_variant_registry() {
 					array(
 						'template' => 'parts/traditional-method',
 					),
+					array(
+						'template' => 'parts/partner-cta',
+					),
 				),
 			),
 		),
@@ -86,6 +89,61 @@ function valjevska_pivara_sanitize_variant_slug( $component, $slug ) {
 }
 
 /**
+ * Sanitize a contact phone stored in Theme Configuration.
+ *
+ * Keeps a display value. A tel: href is derived separately.
+ *
+ * @param mixed $phone Raw submitted value.
+ * @return string
+ */
+function valjevska_pivara_sanitize_contact_phone( $phone ) {
+	if ( ! is_string( $phone ) ) {
+		return '';
+	}
+
+	$phone = trim( wp_strip_all_tags( $phone ) );
+	$phone = preg_replace( '/[^\d+\-\s\/().]/', '', $phone );
+
+	if ( ! is_string( $phone ) ) {
+		return '';
+	}
+
+	$phone = trim( $phone );
+
+	if ( '' === $phone ) {
+		return '';
+	}
+
+	$digits = preg_replace( '/\D/', '', $phone );
+
+	if ( ! is_string( $digits ) || strlen( $digits ) < 6 ) {
+		return '';
+	}
+
+	return $phone;
+}
+
+/**
+ * Sanitize a contact email stored in Theme Configuration.
+ *
+ * @param mixed $email Raw submitted value.
+ * @return string
+ */
+function valjevska_pivara_sanitize_contact_email( $email ) {
+	if ( ! is_string( $email ) ) {
+		return '';
+	}
+
+	$email = sanitize_email( $email );
+
+	if ( '' === $email || ! is_email( $email ) ) {
+		return '';
+	}
+
+	return $email;
+}
+
+/**
  * Sanitize the Theme Configuration option array.
  *
  * @param mixed $input Raw submitted value.
@@ -108,6 +166,20 @@ function valjevska_pivara_sanitize_theme_config( $input ) {
 		$clean[ $component ] = valjevska_pivara_sanitize_variant_slug( $component, $value );
 	}
 
+	$phone = '';
+	$email = '';
+
+	if ( isset( $input['phone'] ) ) {
+		$phone = $input['phone'];
+	}
+
+	if ( isset( $input['email'] ) ) {
+		$email = $input['email'];
+	}
+
+	$clean['phone'] = valjevska_pivara_sanitize_contact_phone( $phone );
+	$clean['email'] = valjevska_pivara_sanitize_contact_email( $email );
+
 	return $clean;
 }
 
@@ -120,6 +192,61 @@ function valjevska_pivara_get_theme_config() {
 	$stored = get_option( 'valjevska_pivara_theme_config', array() );
 
 	return valjevska_pivara_sanitize_theme_config( $stored );
+}
+
+/**
+ * Return the Theme Configuration phone display value, or an empty string.
+ *
+ * @return string
+ */
+function valjevska_pivara_get_contact_phone() {
+	$config = valjevska_pivara_get_theme_config();
+
+	return isset( $config['phone'] ) ? $config['phone'] : '';
+}
+
+/**
+ * Return a tel: href from Theme Configuration, or an empty string.
+ *
+ * @return string
+ */
+function valjevska_pivara_get_contact_tel() {
+	$phone = valjevska_pivara_get_contact_phone();
+
+	if ( '' === $phone ) {
+		return '';
+	}
+
+	$href = preg_replace( '/[^\d+]/', '', $phone );
+
+	if ( ! is_string( $href ) || '' === $href ) {
+		return '';
+	}
+
+	if ( 0 === strpos( $href, '+' ) ) {
+		$href = '+' . str_replace( '+', '', substr( $href, 1 ) );
+	} else {
+		$href = str_replace( '+', '', $href );
+	}
+
+	$digits = preg_replace( '/\D/', '', $href );
+
+	if ( ! is_string( $digits ) || strlen( $digits ) < 6 ) {
+		return '';
+	}
+
+	return 'tel:' . $href;
+}
+
+/**
+ * Return the Theme Configuration email, or an empty string.
+ *
+ * @return string
+ */
+function valjevska_pivara_get_contact_email() {
+	$config = valjevska_pivara_get_theme_config();
+
+	return isset( $config['email'] ) ? $config['email'] : '';
 }
 
 /**

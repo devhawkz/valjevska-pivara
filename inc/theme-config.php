@@ -42,6 +42,8 @@ function valjevska_pivara_register_theme_config_setting() {
 				'header'   => 'v1',
 				'footer'   => 'v1',
 				'homepage' => 'v1',
+				'phone'    => '',
+				'email'    => '',
 			),
 		)
 	);
@@ -72,6 +74,43 @@ function valjevska_pivara_register_theme_config_setting() {
 			)
 		);
 	}
+
+	add_settings_section(
+		'valjevska_pivara_theme_config_contact_section',
+		__( 'Contact', 'valjevska-pivara' ),
+		'__return_false',
+		'valjevska-pivara-theme-config'
+	);
+
+	add_settings_field(
+		'valjevska_pivara_phone',
+		__( 'Phone', 'valjevska-pivara' ),
+		'valjevska_pivara_render_contact_field',
+		'valjevska-pivara-theme-config',
+		'valjevska_pivara_theme_config_contact_section',
+		array(
+			'key'         => 'phone',
+			'type'        => 'tel',
+			'label_for'   => 'valjevska_pivara_phone',
+			'description' => __( 'Used for the Partner CTA call button. Leave empty to hide the button. Do not use a placeholder number.', 'valjevska-pivara' ),
+			'placeholder' => '',
+		)
+	);
+
+	add_settings_field(
+		'valjevska_pivara_email',
+		__( 'Email', 'valjevska-pivara' ),
+		'valjevska_pivara_render_contact_field',
+		'valjevska-pivara-theme-config',
+		'valjevska_pivara_theme_config_contact_section',
+		array(
+			'key'         => 'email',
+			'type'        => 'email',
+			'label_for'   => 'valjevska_pivara_email',
+			'description' => __( 'Used for the Partner CTA email button. Leave empty to hide the button.', 'valjevska-pivara' ),
+			'placeholder' => 'valjevsko@mts.rs',
+		)
+	);
 }
 add_action( 'admin_init', 'valjevska_pivara_register_theme_config_setting' );
 
@@ -129,5 +168,42 @@ function valjevska_pivara_render_variant_field( $args ) {
 			</option>
 		<?php endforeach; ?>
 	</select>
+	<?php
+}
+
+/**
+ * Render a contact text field.
+ *
+ * @param array $args Field arguments with `key` and `type`.
+ * @return void
+ */
+function valjevska_pivara_render_contact_field( $args ) {
+	$key = isset( $args['key'] ) ? $args['key'] : '';
+
+	if ( 'phone' !== $key && 'email' !== $key ) {
+		return;
+	}
+
+	$config      = valjevska_pivara_get_theme_config();
+	$value       = isset( $config[ $key ] ) ? $config[ $key ] : '';
+	$type        = isset( $args['type'] ) ? $args['type'] : 'text';
+	$field_id    = 'valjevska_pivara_' . $key;
+	$placeholder = isset( $args['placeholder'] ) ? $args['placeholder'] : '';
+	$description = isset( $args['description'] ) ? $args['description'] : '';
+	?>
+	<input
+		type="<?php echo esc_attr( $type ); ?>"
+		id="<?php echo esc_attr( $field_id ); ?>"
+		name="<?php echo esc_attr( 'valjevska_pivara_theme_config[' . $key . ']' ); ?>"
+		value="<?php echo esc_attr( $value ); ?>"
+		class="regular-text"
+		autocomplete="<?php echo esc_attr( $key ); ?>"
+		<?php if ( '' !== $placeholder ) : ?>
+			placeholder="<?php echo esc_attr( $placeholder ); ?>"
+		<?php endif; ?>
+	>
+	<?php if ( '' !== $description ) : ?>
+		<p class="description"><?php echo esc_html( $description ); ?></p>
+	<?php endif; ?>
 	<?php
 }
