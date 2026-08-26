@@ -45,6 +45,9 @@ function valjevska_pivara_get_variant_registry() {
 					array(
 						'template' => 'parts/homepage-v1-hero',
 					),
+					array(
+						'template' => 'parts/traditional-method',
+					),
 				),
 			),
 		),

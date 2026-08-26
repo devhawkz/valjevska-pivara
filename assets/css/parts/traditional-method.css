@@ -1,0 +1,348 @@
+/**
+ * Homepage V1 traditional method section.
+ */
+
+.vp-traditional {
+  --vp-traditional-pad-inline: var(--vp-footer-padding-inline-narrow);
+  --vp-traditional-pad-block: var(--vp-footer-padding-block-narrow);
+  --vp-traditional-pad-inline-end: var(--vp-traditional-pad-inline);
+  position: relative;
+  left: 50%;
+  box-sizing: border-box;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: -50vw;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--vp-traditional-surface);
+  color: var(--vp-traditional-text);
+}
+
+.vp-traditional__layout {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+
+.vp-traditional__media {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+}
+
+.vp-traditional__media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.vp-traditional__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.vp-traditional__body {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  background-color: var(--vp-traditional-surface);
+}
+
+.vp-traditional__header {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 1.8vw, 1.25rem);
+  box-sizing: border-box;
+  min-width: 0;
+  padding-block-start: clamp(1.5rem, 4vw, var(--vp-traditional-pad-block));
+  padding-block-end: clamp(1.25rem, 3vw, 2rem);
+  padding-inline: var(--vp-traditional-pad-inline) var(--vp-traditional-pad-inline-end);
+}
+
+.vp-traditional__eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.vp-traditional__eyebrow {
+  margin: 0;
+  flex: 0 1 auto;
+  font-family: var(--vp-font-family-heading);
+  font-weight: var(--vp-font-weight-medium);
+  font-size: clamp(0.875rem, 0.8rem + 0.35vw, 1.0625rem);
+  line-height: 1.3;
+  letter-spacing: var(--vp-letter-spacing-default);
+  color: var(--vp-traditional-text);
+  text-wrap: pretty;
+}
+
+.vp-traditional__eyebrow-line {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 2rem;
+  height: 0.0625rem;
+  background-color: var(--vp-color-accent);
+}
+
+.vp-traditional__accent {
+  margin: 0;
+  font-family: "Italianno", cursive;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2rem, 1.15rem + 4.2vw, 3.25rem);
+  line-height: 1.1;
+  letter-spacing: var(--vp-letter-spacing-default);
+  color: var(--vp-color-accent);
+  overflow-wrap: anywhere;
+}
+
+.vp-traditional__title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--vp-font-family-heading);
+  font-weight: var(--vp-font-weight-black);
+  font-size: clamp(1.5rem, 1.05rem + 2.2vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--vp-traditional-text);
+}
+
+.vp-traditional__title-line {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.vp-traditional__intro,
+.vp-traditional__feature-text {
+  margin: 0;
+  font-family: var(--vp-font-family-body);
+  font-weight: var(--vp-font-weight-regular);
+  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.125rem);
+  line-height: 1.5;
+  letter-spacing: var(--vp-letter-spacing-default);
+  color: var(--vp-traditional-text);
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+.vp-traditional__features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+  min-width: 0;
+  background-color: var(--vp-traditional-surface);
+}
+
+.vp-traditional__feature {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding-block: clamp(1rem, 2.4vw, 1.5rem);
+  padding-inline: 1.4rem 1rem;
+  background-color: var(--vp-traditional-feature-background);
+}
+
+.vp-traditional__feature-title {
+  margin: 0;
+  padding-block-end: 0.75rem;
+  border-block-end: 0.0625rem solid var(--vp-traditional-divider);
+  font-family: var(--vp-font-family-heading);
+  font-weight: var(--vp-font-weight-black);
+  font-size: clamp(0.875rem, 0.8rem + 0.35vw, 1.0625rem);
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--vp-traditional-text);
+  overflow-wrap: anywhere;
+}
+
+.vp-traditional__actions {
+  display: flex;
+  justify-content: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding-block: clamp(1.25rem, 3vw, 2rem) clamp(1.5rem, 4vw, var(--vp-traditional-pad-block));
+  padding-inline: var(--vp-traditional-pad-inline) var(--vp-traditional-pad-inline-end);
+  background-color: var(--vp-traditional-surface);
+}
+
+.vp-traditional__cta {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  color: var(--vp-button-primary-color);
+}
+
+.vp-traditional__cta:hover,
+.vp-traditional__cta:focus,
+.vp-traditional__cta:focus-visible {
+  color: var(--vp-button-primary-color);
+  text-decoration: none;
+}
+
+.vp-traditional__arrow {
+  display: block;
+  flex-shrink: 0;
+  width: 1.375rem;
+  height: 0.625rem;
+}
+
+@media (min-width: 48em) and (max-width: 63.99em) {
+  .vp-traditional__media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .vp-traditional {
+    --vp-traditional-pad-inline: clamp(1.5rem, 4vw, 2.5rem);
+    --vp-traditional-pad-block: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  .vp-traditional__feature {
+    display: grid;
+    grid-template-columns: minmax(0, 0.34fr) minmax(0, 1fr);
+    column-gap: 1.25rem;
+    align-items: center;
+  }
+
+  .vp-traditional__feature-title {
+    padding-block-end: 0;
+    padding-inline-end: 1.25rem;
+    border-block-end: 0;
+    border-inline-end: 0.0625rem solid var(--vp-traditional-divider);
+  }
+
+  .vp-traditional__actions {
+    justify-content: flex-start;
+  }
+
+  .vp-traditional__cta {
+    width: auto;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 64em) {
+  .vp-traditional {
+    --vp-traditional-pad-inline: clamp(2.5rem, 5.5vw, 6.5rem);
+    --vp-traditional-pad-block: clamp(2.75rem, 5.2vw, 4.5rem);
+  }
+
+  .vp-traditional__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .vp-traditional__media {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  .vp-traditional__media picture {
+    position: absolute;
+    inset: 0;
+  }
+
+  .vp-traditional__header {
+    gap: clamp(1.125rem, 1.8vw, 1.75rem);
+    padding-block-start: var(--vp-traditional-pad-block);
+    padding-block-end: clamp(1.75rem, 3vw, 2.75rem);
+  }
+
+  .vp-traditional__eyebrow {
+    font-size: clamp(1.125rem, 0.85rem + 0.55vw, 1.5rem);
+    font-weight: var(--vp-font-weight-black);
+  }
+
+  .vp-traditional__accent {
+    overflow-wrap: normal;
+    font-size: clamp(2.75rem, 1.4rem + 2.6vw, 4rem);
+  }
+
+  .vp-traditional__title {
+    font-size: var(--vp-font-size-display);
+    line-height: 1.1;
+    overflow-wrap: normal;
+  }
+
+  .vp-traditional__title-line {
+    overflow-wrap: normal;
+  }
+
+  .vp-traditional__intro,
+  .vp-traditional__feature-text {
+    font-size: clamp(1.125rem, 0.9rem + 0.45vw, 1.5rem);
+    line-height: 1.55;
+  }
+
+  .vp-traditional__intro {
+    text-align: justify;
+  }
+
+  .vp-traditional__feature {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.3fr) minmax(0, 1fr);
+    column-gap: clamp(1.25rem, 2vw, 2rem);
+    align-items: center;
+    padding-block: clamp(1.75rem, 2.8vw, 2.75rem);
+  }
+
+  .vp-traditional__feature-title {
+    padding-block-end: 0;
+    padding-inline-end: clamp(1.25rem, 2vw, 2rem);
+    border-block-end: 0;
+    border-inline-end: 0.0625rem solid var(--vp-traditional-divider);
+    font-size: clamp(1rem, 0.85rem + 0.35vw, 1.25rem);
+  }
+
+  .vp-traditional__actions {
+    justify-content: center;
+    padding-block-start: clamp(1.75rem, 3vw, 2.75rem);
+    padding-block-end: var(--vp-traditional-pad-block);
+  }
+
+  .vp-traditional__cta {
+    width: 100%;
+    max-width: 31.25rem;
+    min-height: 4.5rem;
+    font-size: clamp(1rem, 0.85rem + 0.3vw, 1.25rem);
+  }
+
+  .vp-traditional__arrow {
+    width: 1.75rem;
+    height: 0.75rem;
+  }
+}
+
+
+@media (max-width: 22.49em) {
+  .vp-traditional__accent {
+    font-size: clamp(1.625rem, 8vw, 2rem);
+  }
+
+  .vp-traditional__title {
+    font-size: 1.375rem;
+  }
+}
