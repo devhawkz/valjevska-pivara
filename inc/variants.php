@@ -51,6 +51,9 @@ function valjevska_pivara_get_variant_registry() {
 					array(
 						'template' => 'parts/partner-cta',
 					),
+					array(
+						'template' => 'parts/quality',
+					),
 				),
 			),
 		),

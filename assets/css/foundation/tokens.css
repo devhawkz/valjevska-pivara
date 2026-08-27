@@ -117,4 +117,10 @@
   --vp-partner-body-gap: 2rem;
   --vp-partner-subtitle-gap: 1.25rem;
   --vp-partner-actions-gap: 0.75rem;
+
+  --vp-quality-surface: var(--vp-color-header-background);
+  --vp-quality-divider: rgba(255, 255, 255, 0.28);
+  --vp-quality-divider-size: 0.0625rem;
+  --vp-quality-icon-size: clamp(2.5rem, 2rem + 1.2vw, 3.5rem);
+  --vp-quality-padding-block: 5rem;
 }
