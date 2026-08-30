@@ -10,22 +10,81 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Register child-theme menu locations used by the footer.
+ * Register menu locations and keep Appearance → Menus in the admin.
  *
- * The parent already registers `primary`. This adds footer locations
- * without replacing that registration.
+ * The child registers every location it renders so the Menus screen does
+ * not depend on the parent `init` callback. `primary` is merged if the
+ * parent also registers it.
  *
  * @return void
  */
 function valjevska_pivara_register_menus() {
+	add_theme_support( 'menus' );
+
 	register_nav_menus(
 		array(
+			'primary'      => __( 'Main menu', 'valjevska-pivara' ),
 			'footer'       => __( 'Footer', 'valjevska-pivara' ),
 			'footer-legal' => __( 'Footer legal', 'valjevska-pivara' ),
 		)
 	);
 }
-add_action( 'after_setup_theme', 'valjevska_pivara_register_menus' );
+add_action( 'after_setup_theme', 'valjevska_pivara_register_menus', 9 );
+
+/**
+ * Restore Appearance → Menus.
+ *
+ * Core may omit the item when Unyson/Freemius rewrite the Appearance
+ * submenu. add_theme_page is the same API as Konfiguracija teme, which
+ * does appear. The screen redirects to the native Menus UI.
+ *
+ * @return void
+ */
+function valjevska_pivara_ensure_appearance_menus_page() {
+	if ( ! current_user_can( 'edit_theme_options' ) ) {
+		return;
+	}
+
+	global $submenu;
+
+	$has_core_menus = false;
+
+	if ( isset( $submenu['themes.php'] ) && is_array( $submenu['themes.php'] ) ) {
+		foreach ( $submenu['themes.php'] as $item ) {
+			if ( empty( $item[2] ) ) {
+				continue;
+			}
+
+			if ( 'nav-menus.php' === $item[2] || 'valjevska-pivara-menus' === $item[2] ) {
+				$has_core_menus = true;
+				break;
+			}
+		}
+	}
+
+	if ( $has_core_menus ) {
+		return;
+	}
+
+	add_theme_page(
+		__( 'Menus' ),
+		__( 'Menus' ),
+		'edit_theme_options',
+		'valjevska-pivara-menus',
+		'valjevska_pivara_redirect_to_nav_menus'
+	);
+}
+add_action( 'admin_menu', 'valjevska_pivara_ensure_appearance_menus_page', 1000000003 );
+
+/**
+ * Open the native Menus screen.
+ *
+ * @return void
+ */
+function valjevska_pivara_redirect_to_nav_menus() {
+	wp_safe_redirect( admin_url( 'nav-menus.php' ) );
+	exit;
+}
 
 /**
  * Print the site logo image, preferring the SVG asset.

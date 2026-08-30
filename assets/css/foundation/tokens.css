@@ -44,6 +44,7 @@
   --vp-letter-spacing-default: 0;
 
   --vp-color-header-background: #111111;
+  --header-v1-height: 4.75rem;
   --vp-header-nav-gap: 4.125rem;
   --vp-header-nav-margin-block-start: 3.75rem;
   --vp-header-nav-margin-inline-end: 22.875rem;
@@ -123,4 +124,25 @@
   --vp-quality-divider-size: 0.0625rem;
   --vp-quality-icon-size: clamp(2.5rem, 2rem + 1.2vw, 3.5rem);
   --vp-quality-padding-block: 5rem;
+
+  --vp-instagram-surface: var(--vp-traditional-feature-background);
+  --vp-instagram-card-background: #ffffff;
+  --vp-instagram-text: var(--vp-traditional-text);
+  --vp-instagram-radius: 0.5rem;
+  --vp-instagram-padding-block: 5rem;
+
+  --vp-brands-surface: var(--vp-color-header-background);
+  --vp-brands-padding-inline: 1.5rem;
+  --vp-brands-control-size: 3rem;
+  --vp-brands-body: rgba(255, 255, 255, 0.92);
+}
+
+@media (min-width: 74.875em) {
+  :root {
+    --header-v1-height: calc(
+      var(--vp-header-logo-margin-block-start) +
+        var(--vp-header-logo-height) +
+        var(--vp-header-logo-margin-block-end)
+    );
+  }
 }

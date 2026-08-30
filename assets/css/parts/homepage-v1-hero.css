@@ -135,7 +135,7 @@
   .vp-hero picture {
     display: block;
     width: 100%;
-    height: var(--vp-hero-desktop-height);
+    /*height: var(--vp-hero-desktop-height);*/
   }
 
   .vp-hero__image {

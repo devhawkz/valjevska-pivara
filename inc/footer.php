@@ -32,12 +32,30 @@ function valjevska_pivara_get_social_networks() {
 }
 
 /**
- * Return a sanitized http(s) URL from a theme mod, or an empty string.
+ * Return a sanitized http(s) URL for a social network, or an empty string.
+ *
+ * Theme Configuration is the source of truth. A previously saved Customizer
+ * theme mod is used only when the matching Theme Configuration field is empty.
  *
  * @param string $mod Theme mod name.
  * @return string
  */
 function valjevska_pivara_get_social_url( $mod ) {
+	$config_map = array(
+		'valjevska_pivara_social_x'         => 'social_x',
+		'valjevska_pivara_social_facebook'  => 'social_facebook',
+		'valjevska_pivara_social_instagram' => 'social_instagram',
+	);
+
+	if ( isset( $config_map[ $mod ] ) && function_exists( 'valjevska_pivara_get_theme_config' ) ) {
+		$config = valjevska_pivara_get_theme_config();
+		$key    = $config_map[ $mod ];
+
+		if ( isset( $config[ $key ] ) && is_string( $config[ $key ] ) && '' !== $config[ $key ] ) {
+			return esc_url( $config[ $key ], array( 'http', 'https' ) );
+		}
+	}
+
 	$url = get_theme_mod( $mod, '' );
 
 	if ( ! is_string( $url ) || '' === $url ) {

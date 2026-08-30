@@ -1,0 +1,23 @@
+/**
+ * Appearance → Theme Configuration admin helpers.
+ */
+
+.vp-theme-config-instagram-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.vp-theme-config-instagram-row img {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.vp-theme-config-instagram-sync {
+  margin-block-start: 2rem;
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid #c3c4c7;
+}

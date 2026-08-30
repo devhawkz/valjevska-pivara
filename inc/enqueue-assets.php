@@ -9,7 +9,8 @@
  * - Homepage variant assets: loaded only on the front page, and only
  *   for section parts registered on the active homepage variant. Each
  *   part's stylesheet is `assets/css/{template}.css` unless the part
- *   declares a `stylesheet` key.
+ *   declares a `stylesheet` key. A part may also declare `script` and
+ *   `script_handle` to load deferred JavaScript on the front page.
  * - Opt-in button primitives: loaded globally while there is no PHP
  *   component that can detect usage. Do not add further component CSS
  *   to this global set.
@@ -155,11 +156,13 @@ function valjevska_pivara_enqueue_styles() {
 
 	if ( is_front_page() ) {
 		valjevska_pivara_enqueue_homepage_part_assets();
+		valjevska_pivara_enqueue_brands_slider_assets();
 	}
 }
 
 /**
- * Enqueue stylesheets for homepage section parts used on the front page.
+ * Enqueue stylesheets and optional scripts for homepage section parts
+ * used on the front page.
  *
  * @return void
  */
@@ -173,6 +176,10 @@ function valjevska_pivara_enqueue_homepage_part_assets() {
 			$stylesheet = 'assets/css/' . $part['template'] . '.css';
 		}
 
+		if ( 'parts/brands' === $part['template'] && ( ! function_exists( 'vp_brands_get_slides' ) || empty( vp_brands_get_slides() ) ) ) {
+			continue;
+		}
+
 		$style_handle = 'valjevska-pivara-' . sanitize_key( str_replace( '/', '-', $part['template'] ) );
 
 		if ( ! empty( $part['style_handle'] ) && is_string( $part['style_handle'] ) ) {
@@ -184,7 +191,47 @@ function valjevska_pivara_enqueue_homepage_part_assets() {
 			$stylesheet,
 			array( 'valjevska-pivara-tokens', 'valjevska-pivara-base' )
 		);
+
+		if ( empty( $part['script'] ) || ! is_string( $part['script'] ) ) {
+			continue;
+		}
+
+		$script_handle = 'valjevska-pivara-' . sanitize_key( str_replace( '/', '-', $part['template'] ) );
+
+		if ( ! empty( $part['script_handle'] ) && is_string( $part['script_handle'] ) ) {
+			$script_handle = $part['script_handle'];
+		}
+
+		valjevska_pivara_enqueue_script( $script_handle, $part['script'] );
 	}
+}
+
+/**
+ * Enqueue Swiper and the brands controller only when two or more slides exist.
+ *
+ * @return void
+ */
+function valjevska_pivara_enqueue_brands_slider_assets() {
+	if ( ! function_exists( 'vp_brands_get_slides' ) ) {
+		return;
+	}
+
+	$slides = vp_brands_get_slides();
+
+	if ( count( $slides ) < 2 ) {
+		return;
+	}
+
+	valjevska_pivara_enqueue_script(
+		'valjevska-pivara-swiper',
+		'assets/vendor/swiper/swiper-bundle.min.js'
+	);
+
+	valjevska_pivara_enqueue_script(
+		'valjevska-pivara-parts-brands',
+		'assets/js/parts/brands.js',
+		array( 'valjevska-pivara-swiper' )
+	);
 }
 
 /**

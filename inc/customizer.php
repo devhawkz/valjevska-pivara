@@ -10,6 +10,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Stop Unyson from registering Customizer controls.
+ *
+ * Unyson (lt-core) hooks customize_register at priority 7. On WordPress 7.1
+ * its option types throw during registration, so later callbacks never run
+ * and the Customizer accordion stays empty.
+ *
+ * @return void
+ */
+function valjevska_pivara_disable_unyson_customizer() {
+	if ( ! function_exists( 'fw' ) ) {
+		return;
+	}
+
+	remove_action( 'customize_register', array( fw()->backend, '_action_customize_register' ), 7 );
+	add_filter( 'fw_customizer_options', '__return_empty_array', 99 );
+}
+add_action( 'fw_init', 'valjevska_pivara_disable_unyson_customizer', 20 );
+
+/**
+ * Keep Unyson Customizer scripts from loading on the controls screen.
+ *
+ * @return void
+ */
+function valjevska_pivara_dequeue_unyson_customizer_assets() {
+	wp_dequeue_script( 'fw-backend-customizer' );
+	wp_dequeue_style( 'fw-backend-customizer' );
+}
+add_action( 'customize_controls_enqueue_scripts', 'valjevska_pivara_dequeue_unyson_customizer_assets', 100 );
+
+/**
  * Register footer description and social URL controls.
  *
  * @param WP_Customize_Manager $wp_customize Customizer manager.
@@ -62,11 +92,12 @@ function valjevska_pivara_customize_register( $wp_customize ) {
 		$wp_customize->add_control(
 			$setting_id,
 			array(
-				'label'   => $label,
-				'section' => 'valjevska_pivara_footer',
-				'type'    => 'url',
+				'label'       => $label,
+				'description' => __( 'Prefer Appearance → Konfiguracija teme → Social icons. This field is used only when that setting is empty.', 'valjevska-pivara' ),
+				'section'     => 'valjevska_pivara_footer',
+				'type'        => 'url',
 			)
 		);
 	}
 }
-add_action( 'customize_register', 'valjevska_pivara_customize_register' );
+add_action( 'customize_register', 'valjevska_pivara_customize_register', 20 );
